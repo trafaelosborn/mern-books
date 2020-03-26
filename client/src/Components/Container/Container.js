@@ -15,17 +15,32 @@ export default class Container extends Component {
         <div className="container">
         
         {this.props.booksArray.map((book, index) => {
-        const bookObject = {
+          let bookObject = {}
+          if(book.volumeInfo){
+
+          
+        bookObject = {
           title : book.volumeInfo.title,
           authors : book.volumeInfo.authors[0],
           description : book.volumeInfo.description,
-
+          link : book.volumeInfo.infoLink,
           image : book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : ""
         }
         // debugger
-        return(
-          <ResultCard bookObject = {bookObject}/>
-        )
+     
+      }
+      else if (book.title){
+        bookObject = {
+          title : book.title,
+          authors : book.authors,
+          description : book.description,
+          link : book.infoLink,
+          image : book.image ? book.image.thumbnail : ""
+        }
+      }
+      return(
+        <ResultCard bookObject = {bookObject}/>
+      )
   })}
         
         </div>

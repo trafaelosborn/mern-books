@@ -1,3 +1,5 @@
+const db = require ("../models")
+
 const axios = require("axios")
 
 function apiroutes(app){
@@ -8,5 +10,17 @@ function apiroutes(app){
         })
     })
     
+    app.post("/api/savebook", function(req, res){
+        console.log(req.body)
+        console.log(db.Book)
+        db.Book.create(req.body).then(function(result){
+            res.json(result)
+        }) 
+    })
+    app.get("/api/savedbooks", function(req, res){
+        db.Book.find({}).then(function(result){
+            res.json(result)
+        })
+    })
 }
  module.exports = apiroutes
